@@ -43,11 +43,21 @@ fun ConfirmScreen(navController: NavController, email: String, code: String, pas
         Spacer(Modifier.height(16.dp))
         Button(
             onClick = {
+                navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.apply {
+                        set("confirmed_email", email)
+                        set("confirmed_code", code)
+                        set("confirmed_password", password)
+                    }
+
                 navController.navigate("forget") {
                     popUpTo("forget") { inclusive = true }
                 }
             },
             modifier = Modifier.fillMaxWidth()
-        ) { Text("Submit") }
+        ) {
+            Text("Submit")
+        }
     }
 }
